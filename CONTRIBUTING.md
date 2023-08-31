@@ -60,3 +60,4 @@ This section needs to be written.
 ## Useful Resources
 
 Please refer to main OpenTelemetry C++ SDK [contributing guidelines](https://github.com/open-telemetry/opentelemetry-cpp/blob/master/CONTRIBUTING.md) for more details.
+
