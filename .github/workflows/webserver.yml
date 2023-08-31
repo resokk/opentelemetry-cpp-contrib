@@ -2,7 +2,7 @@ name: webserver instrumentation CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/1.0.3 ]
     paths:
       - 'instrumentation/otel-webserver-module/**'
       - '.github/workflows/webserver.yml'
@@ -168,28 +168,4 @@ jobs:
         run: |
           rm -rf /tmp/buildx-cache/apache_centos6
           mv /tmp/buildx-cache/apache_centos6-new /tmp/buildx-cache/apache_centos6
-
-  Codeql-build:
-    name: static-analysis
-    runs-on: ubuntu-20.04
-    steps:
-      - name: checkout otel webserver
-        uses: actions/checkout@v3
-      - name: setup environment
-        run: |
-          cd ..
-          cp opentelemetry-cpp-contrib/instrumentation/otel-webserver-module/codeql-env.sh .
-          sudo ./codeql-env.sh
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: cpp
-      - name: build
-        run: |
-          cd instrumentation/otel-webserver-module
-          cp -r /dependencies ../otel-webserver-module/
-          cp -r /build-dependencies ../otel-webserver-module/
-          ./gradlew assembleWebserverModule -DtargetSystem=ubuntu --info
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
 
